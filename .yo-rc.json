@@ -1,0 +1,19 @@
+{
+  "generator-jhipster": {
+    "deploymentType": "kubernetes",
+    "gatewayType": "zuul",
+    "monitoring": "no",
+    "directoryPath": "../",
+    "appsFolders": ["bank", "customer", "product"],
+    "clusteredDbApps": [],
+    "consoleOptions": [],
+    "serviceDiscoveryType": false,
+    "dockerRepositoryName": "latishmk",
+    "dockerPushCommand": "docker push",
+    "kubernetesNamespace": "zyllion",
+    "kubernetesServiceType": "Ingress",
+    "ingressDomain": "zyllion.nip.io",
+    "istio": true,
+    "jwtSecretKey": "NGQ2YzNjZDIzNmZjM2ZmMGM1OWExYmIwMjg1Y2IzMTY0OGE3NjZmN2Q3N2I1YTNlM2VkNjBmNTc3MGNjMDk0ZDQzYzkyYjQ2NDZkZmNkYjVmZmZmOGRmOGJhM2IxZTYxNDNhYg=="
+  }
+}

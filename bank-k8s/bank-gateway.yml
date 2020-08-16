@@ -1,0 +1,56 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: bank-gateway
+  namespace: zyllion
+  labels:
+    gateway: bank-gateway
+    istio: ingressgateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - bank.zyllion.zyllion.nip.io
+    - port:
+        number: 80
+        name: http2
+        protocol: HTTP2
+      hosts:
+        - bank.zyllion.zyllion.nip.io
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: bank-gw-virtualservice
+  namespace: zyllion
+  labels:
+    service: bank-gw-virtualservice
+spec:
+  hosts:
+    - bank.zyllion.zyllion.nip.io
+  gateways:
+    - bank-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /services/customer/
+      route:
+        - destination:
+            host: customer
+    - match:
+        - uri:
+            prefix: /services/product/
+      route:
+        - destination:
+            host: product
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: bank

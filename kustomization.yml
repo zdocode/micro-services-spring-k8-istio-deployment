@@ -1,0 +1,81 @@
+commonLabels:
+  app.kubernetes.io/genereted-by: JHipster
+
+namespace: zyllion
+
+resources:
+  - namespace.yml
+  # Individual apps
+  - bank-k8s/bank-deployment.yml
+  - bank-k8s/bank-service.yml
+  - bank-k8s/bank-mysql.yml
+  - bank-k8s/bank-gateway.yml
+  - bank-k8s/jwt-secret.yml
+  - bank-k8s/bank-destination-rule.yml
+  - bank-k8s/bank-virtual-service.yml
+  - customer-k8s/customer-deployment.yml
+  - customer-k8s/customer-service.yml
+  - customer-k8s/customer-mysql.yml
+  - customer-k8s/jwt-secret.yml
+  - customer-k8s/customer-destination-rule.yml
+  - customer-k8s/customer-virtual-service.yml
+  - product-k8s/product-deployment.yml
+  - product-k8s/product-service.yml
+  - product-k8s/product-mysql.yml
+  - product-k8s/jwt-secret.yml
+  - product-k8s/product-destination-rule.yml
+  - product-k8s/product-virtual-service.yml
+  # service discovery eureka/consul
+  # istio
+  - istio-k8s/grafana-gateway.yml
+  - istio-k8s/zipkin-gateway.yml
+  - istio-k8s/kiali-gateway.yml
+
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Namespace
+      name: zyllion
+    path: patch-k8s/istio-label.yml
+  - target:
+      group: networking.istio.io
+      version: v1alpha3
+      kind: Gateway
+      name: grafana-observability-gateway
+      namespace: zyllion
+    path: patch-k8s/istio-namespace.yml
+  - target:
+      group: networking.istio.io
+      version: v1alpha3
+      name: grafana-gw-virtualservice
+      kind: VirtualService
+      namespace: zyllion
+    path: patch-k8s/istio-namespace.yml
+  - target:
+      group: networking.istio.io
+      version: v1alpha3
+      kind: Gateway
+      name: kiali-observability-gateway
+      namespace: zyllion
+    path: patch-k8s/istio-namespace.yml
+  - target:
+      group: networking.istio.io
+      version: v1alpha3
+      name: kiali-gw-virtualservice
+      kind: VirtualService
+      namespace: zyllion
+    path: patch-k8s/istio-namespace.yml
+  - target:
+      group: networking.istio.io
+      version: v1alpha3
+      kind: Gateway
+      name: zipkin-observability-gateway
+      namespace: zyllion
+    path: patch-k8s/istio-namespace.yml
+  - target:
+      group: networking.istio.io
+      version: v1alpha3
+      name: zipkin-gw-virtualservice
+      kind: VirtualService
+      namespace: zyllion
+    path: patch-k8s/istio-namespace.yml
